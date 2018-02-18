@@ -16,6 +16,7 @@ class Scraper(object):
     o = '&o=listingdate-desc'
 
     def set_web_site(self, web_site):
+    
         '''docstring'''
 
         self.web_site = web_site
@@ -29,6 +30,7 @@ class Scraper(object):
         return web_site, self.search_term, self.start_url, self.main_url
 
     def url_list(self):
+    
         '''docstring'''
 
         self.r = requests.get(self.main_url)
