@@ -16,7 +16,7 @@ class Scraper(object):
     o = '&o=listingdate-desc'
 
     def set_web_site(self, web_site):
-    
+
         '''docstring'''
 
         self.web_site = web_site
@@ -30,35 +30,46 @@ class Scraper(object):
         return web_site, self.search_term, self.start_url, self.main_url
 
     def url_list(self):
-    
+
         '''docstring'''
 
         self.r = requests.get(self.main_url)
         self.c = self.r.content
         self.soup = BeautifulSoup(self.c, 'html.parser')
 
-        self.num_listings = (
-            int(self.soup.find('div', {'class': 'results-label'})
-                .text.replace('(', '').replace(')', '')
-                .split()[-1].replace(',', ''))
-            )
+        try:
+            self.num_listings = (
+                int(self.soup.find('div', {'class': 'results-label'})
+                    .text.replace('(', '').replace(')', '')
+                    .split()[-1].replace(',', ''))
+                )
+        except(AttributeError, TypeError):
+            print("\n#### Unable to access site. Is it down? "
+                  "Is the URL correct? ####")
+            raise
 
-        url_list = []
-        while self.num_listings > 0:
+        try:
+            url_list = []
+            while self.num_listings > 0:
 
-            Scraper.t = '&t=0'
-            Scraper.s = '&s=' + str(self.list_count)
-            Scraper.r = '&r=20'
-            Scraper.p = '&p=' + str(self.page_num)
-            Scraper.o = '&o=listingdate-desc'
-            page_url = (self.start_url + Scraper.t + Scraper.s + Scraper.r +
-                        Scraper.p + Scraper.o)
-            url_list.append(page_url)
+                Scraper.t = '&t=0'
+                Scraper.s = '&s=' + str(self.list_count)
+                Scraper.r = '&r=20'
+                Scraper.p = '&p=' + str(self.page_num)
+                Scraper.o = '&o=listingdate-desc'
+                page_url = (self.start_url + Scraper.t + Scraper.s + Scraper.r +
+                            Scraper.p + Scraper.o)
+                url_list.append(page_url)
 
-            self.list_count += 20
-            self.num_listings -= 20
+                self.list_count += 20
+                self.num_listings -= 20
 
-        return url_list
+            return url_list
+        except AttributeError:
+            print("\n#### Unable to access site. Is it down? "
+                  "Is the URL correct? ####")
+            raise
+
 
 
 if __name__ == '__main__':
