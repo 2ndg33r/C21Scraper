@@ -2,6 +2,7 @@ name: c21scraper_env
 channels:
   - defaults
 dependencies:
+  - python=3.6
   - asn1crypto=0.24.0=py36_0
   - beautifulsoup4=4.6.0=py36hd4cc5e8_1
   - ca-certificates=2017.08.26=h94faf87_0
