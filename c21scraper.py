@@ -82,8 +82,9 @@ if __name__ == '__main__':
     list_label = url.web_site.split('/')[-2]
     county = url.web_site.split('/')[-3].split('-')[0]
     state = url.web_site.split('/')[-3].split('-')[-1]
-    locale = '{} County, {}'.format(county, state)
-    print('\nProcessing List for {}\n'.format(str.title(locale)))
+    locale = (f'{county} county, {state}')
+    print('\nProcessing List {} County, {}\n'
+              .format(str.title(county), str.upper(state)))
 
     urls = url.url_list()
     full_list = []
@@ -150,7 +151,7 @@ if __name__ == '__main__':
 
     df = pd.DataFrame(full_list)
     list_count = len(df.index)
-    print('Property Count: {}\n'.format(str(list_count)))
-    print('Outputting results from {} to CSV.\n'.format(full_url))
-    df.to_csv('Century21 Property Listings for {}.csv'
-              .format(str.title(locale)))
+    print(f'Property Count: {list_count}\n')
+    print(f'Outputting results from {full_url} to CSV.\n')
+    df.to_csv(f'century21_property_listings_for_{county}_{state}.csv',
+              index=False)
