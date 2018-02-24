@@ -2,7 +2,6 @@ name: c21scraper_env
 channels:
   - defaults
 dependencies:
-  - python=3.6
   - asn1crypto=0.24.0=py36_0
   - beautifulsoup4=4.6.0=py36hd4cc5e8_1
   - ca-certificates=2017.08.26=h94faf87_0
@@ -34,4 +33,3 @@ dependencies:
   - win_inet_pton=1.0.1=py36he67d7fd_1
   - wincertstore=0.2=py36h7fe50ca_0
 prefix: C:\ProgramData\Miniconda3\envs\c21scraper_env
-
